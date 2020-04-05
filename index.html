@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 30px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 9px #999;
+    }
+
+    .button:hover {
+        background-color: #3e8e41
+    }
+
+    .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    input {
+        padding: 10px;
+        font: 20px Arial;
+    }
+
+    .line {
+        border-bottom: black solid 1px;
+    }
+</style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Bill Calculator!</h1>
+        <p>Welcome to the bill calculator, for each item on the reciept, enter the price followed by who got it. When your done, enter the grand total (after tip, tax, delivery fee, service fee) and press the divide it up button.  </p>
+        <div class="row">
+            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
+                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+            <div class="col-6" style='padding-left:0'>
+                <i class="glyphicon glyphicon-user"></i>
+                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
+            </div>
+            <div class="col-12">
+                <hr />
+            </div>
+
+        </div>
+        <div class="row collection">
+            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
+                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+            <div class="col-6" style='padding-left:0'>
+                <i class="glyphicon glyphicon-user"></i>
+                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
+            </div>
+            <div class="col-12">
+                <hr />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button class='button add'>+</button>
+
+            </div>
+            <div class="col-6"> 
+                <input type="currency" class='grandTotal' placeholder='Grand Total' />
+
+                <button class='button divide'>Divide it up</button>
+            </div>
+
+        </div>
+        <div class="answers"></div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var prices = [];
+            $(".add").on("click", function () {
+                $(".collection").append(`<div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
+                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+            <div class="col-6" style='padding-left:0'>
+                <i class="glyphicon glyphicon-user"></i>
+                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
+            </div><div class="col-12">
+                <hr />
+            </div>`)
+            })
+            $(".divide").on("click", function () {
+                const people = document.querySelectorAll('.person');
+                let heads = []
+                Array.from(people).forEach(function (el) {
+                    heads.push(el.value);
+                });
+
+                console.log(heads)
+                const prices = document.querySelectorAll('.price');
+                let priceArray = []
+                Array.from(prices).forEach(function (el) {
+                    priceArray.push(el.value);
+                });
+
+                console.log(priceArray)
+                const numeric = priceArray.map((res) => { return parseFloat(res) })
+                let subTotal = 0
+                for (var i = 0; i < numeric.length; i++) {
+                    subTotal += numeric[i]
+                }
+                console.log(subTotal)
+                console.log(numeric)
+                var obj = {}
+                for (var i = 0; i < priceArray.length; i++) {
+                    if (!obj.hasOwnProperty(heads[i])) {
+                        var name = heads[i]
+                        console.log(name)
+                        obj[name] = parseFloat(priceArray[i]);
+                    }
+                    else {
+                        var name = heads[i]
+
+                        obj[name] += parseFloat(priceArray[i])
+                    }
+                }
+                var grandTotal=$('.grandTotal').val()
+                console.log(grandTotal)
+                for (var property in obj) {
+                    if (obj.hasOwnProperty(property)) {
+                        // Do things here
+                        var equity = obj[property]/subTotal
+                        obj[property]=equity*grandTotal
+
+                    }
+                }
+                alert(JSON.stringify(obj, null, 4));
+
+            })
+
+
+
+        })
+    </script>
+
+
+</body>
+
+</html>
