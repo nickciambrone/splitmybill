@@ -87,6 +87,8 @@
             <div class="col-6">
                 <button class='button add'>+</button> <br><br>
                 <div class='message' style='color:red'></div>
+                <h4 class='results' style='color:black'></h4>
+
 
             </div>
             <div class="col-6"> 
@@ -169,13 +171,23 @@
                         // Do things here
                         var equity = obj[property]/subTotal
                         var total = (equity*grandTotal)
-                        obj[property]=total.toFixed(2);
+                        obj[property]='$'+total.toFixed(2);
 
                     }
                 }
-                if(!missingPerson && !missingPrice){
+              
+                console.log(jQuery.type(grandTotal))
+                grandTotal=parseFloat(grandTotal)
+                if(grandTotal<=1 || !grandTotal){
+                    $('.message').html('enter a realistic total')
+                }
+                if(!missingPerson && !missingPrice && grandTotal>1){
                     console.log(!missingPerson && !missingPrice)
-                    alert(JSON.stringify(obj, null, 4));
+                    // alert(JSON.stringify(obj, null, 4));
+                    $('.results').html(JSON.stringify(obj,null,4))
+                    $('.message').html('')
+
+
 
                 }
 
