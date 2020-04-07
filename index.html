@@ -85,7 +85,7 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <button class='button add'>+</button> <br><br>
+                <button class='button add'>+</button><button class='button sub' style="background-color: red;">-</button> <br><br>
                 <div class='message' style='color:red'></div>
                 <h4 class='results' style='color:black'></h4>
 
@@ -114,6 +114,12 @@
             </div><div class="col-12">
                 <hr />
             </div>`)
+            })
+            $('.sub').on('click',function(){
+                $('.collection').children().last().remove()
+                $('.collection').children().last().remove()
+                $('.collection').children().last().remove()
+
             })
             $(".divide").on("click", function () {
                 var missingPerson=false;
