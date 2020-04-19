@@ -58,7 +58,9 @@
     <div class="container" style='border: black solid 2px; margin-top: 5px; padding-bottom: 2px;'>
 
         <h1>Bill Calculator!</h1>
-        <p>Welcome to the bill calculator, for each item on the reciept, enter the price followed by who got it. When your done, enter the grand total (after tip, tax, delivery fee, service fee) and press the divide it up button.  </p>
+        <p>Welcome to the bill calculator, for each item on the reciept, enter the price followed by who got it. When
+            your done, enter the grand total (after tip, tax, delivery fee, service fee) and press the divide it up
+            button. If people shared items, enter their names in a comma separated list.  </p>
         <div class="row">
             <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
                     style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
@@ -85,13 +87,14 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <button class='button add'>+</button><button class='button sub' style="background-color: red;">-</button> <br><br>
+                <button class='button add'>+</button><button class='button sub'
+                    style="background-color: red;">-</button> <br><br>
                 <div class='message' style='color:red'></div>
                 <h4 class='results' style='color:black'></h4>
 
 
             </div>
-            <div class="col-6"> 
+            <div class="col-6">
                 <input type="currency" class='grandTotal' placeholder='Grand Total' />
 
                 <button class='button divide'>Divide it up</button>
@@ -103,7 +106,7 @@
     </div>
     <script>
         $(document).ready(function () {
-           
+
             var prices = [];
             $(".add").on("click", function () {
                 $(".collection").append(`<div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
@@ -115,35 +118,38 @@
                 <hr />
             </div>`)
             })
-            $('.sub').on('click',function(){
+            $('.sub').on('click', function () {
                 $('.collection').children().last().remove()
                 $('.collection').children().last().remove()
                 $('.collection').children().last().remove()
 
             })
             $(".divide").on("click", function () {
-                var missingPerson=false;
-                var missingPrice=false;
+                var missingPerson = false;
+                var missingPrice = false;
                 const people = document.querySelectorAll('.person');
                 let heads = []
+                //loop through this jquery array of elements with class "person" and push the values into heads array
                 Array.from(people).forEach(function (el) {
                     heads.push(el.value);
-                    if (!el.value){
-                        missingPerson=true;
+                    //make sure that if there is a missing value we alert the user and update the variable
+                    if (!el.value) {
+                        missingPerson = true;
                         $('.message').html('Calculator is missing values')
 
                     }
-                    
+
                 });
 
                 console.log(heads)
                 const prices = document.querySelectorAll('.price');
                 let priceArray = []
+                //do the same thing for prices
                 Array.from(prices).forEach(function (el) {
                     priceArray.push(el.value);
-                    if (!el.value ){
-                        missingPrice=true;
-                        if(!missingPerson){
+                    if (!el.value) {
+                        missingPrice = true;
+                        if (!missingPerson) {
                             $('.message').html('Calculator is missing values')
                         }
                     }
@@ -158,39 +164,69 @@
                 console.log(subTotal)
                 console.log(numeric)
                 var obj = {}
+                //loop through the price/heads array
                 for (var i = 0; i < priceArray.length; i++) {
-                    if (!obj.hasOwnProperty(heads[i])) {
-                        var name = heads[i]
-                        console.log(name)
-                        obj[name] = parseFloat(priceArray[i]);
+                    if (heads[i].includes(",")) {
+                        var names = heads[i].split(',').map(function (item) {
+                            return item.trim();
+                        });
                     }
                     else {
                         var name = heads[i]
-
-                        obj[name] += parseFloat(priceArray[i])
                     }
+                    if (name) {
+                        if (!obj.hasOwnProperty(heads[i])) {
+
+                            //name = head
+                            console.log(name)
+                            //
+                            obj[name] = parseFloat(priceArray[i]);
+                        }
+                        else {
+                            var name = heads[i]
+
+                            obj[name] += parseFloat(priceArray[i])
+                        }
+                    }
+                    else {
+                        for (var q = 0; q < names.length; q++) {
+                            if (!obj.hasOwnProperty(names[q])) {
+
+                                //name = head
+                                console.log('namesarray: ', name)
+                                //
+                                obj[names[q]] = (parseFloat(priceArray[i]))/names.length;
+                            }
+                            else {
+
+
+                                obj[names[q]] += (parseFloat(priceArray[i]))/names.length
+                            }
+                        }
+                    }
+
                 }
-                var grandTotal=$('.grandTotal').val()
+                var grandTotal = $('.grandTotal').val()
                 console.log(grandTotal)
                 for (var property in obj) {
                     if (obj.hasOwnProperty(property)) {
                         // Do things here
-                        var equity = obj[property]/subTotal
-                        var total = (equity*grandTotal)
-                        obj[property]='$'+total.toFixed(2);
+                        var equity = obj[property] / subTotal
+                        var total = (equity * grandTotal)
+                        obj[property] = '$' + total.toFixed(2);
 
                     }
                 }
-              
+
                 console.log(jQuery.type(grandTotal))
-                grandTotal=parseFloat(grandTotal)
-                if(grandTotal<=1 || !grandTotal){
+                grandTotal = parseFloat(grandTotal)
+                if (grandTotal <= 1 || !grandTotal) {
                     $('.message').html('enter a realistic total')
                 }
-                if(!missingPerson && !missingPrice && grandTotal>1){
+                if (!missingPerson && !missingPrice && grandTotal > 1) {
                     console.log(!missingPerson && !missingPrice)
                     // alert(JSON.stringify(obj, null, 4));
-                    $('.results').html(JSON.stringify(obj,null,4))
+                    $('.results').html(JSON.stringify(obj, null, 4))
                     $('.message').html('')
 
 
