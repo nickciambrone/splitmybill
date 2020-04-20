@@ -54,32 +54,47 @@
 
 </head>
 
-<body>
-    <div class="container" style='border: black solid 2px; margin-top: 5px; padding-bottom: 2px;'>
+<body style = 'background-color: white;'>
+    
+    <div class="container" style='padding: 10px; border: 1px solid #f2f2f2;
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(176,176,176,1);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(176,176,176,1);
+    box-shadow: 1px 1px 4px 0px rgba(176,176,176,1);
+    background-color: #fff;background-color: #F8F8F8; margin-top: 50px;'>
+<div class="jumbotron jumbotron-fluid" style="padding: 0">
+    <div class="container">
+      <h4 class="display-4">Reciept Splitter</h4>
+    <h6>For each item on the reciept:</h6>
+    <ul><li>enter the name of the person who got the item (if people split it, enter their names in a comma separated list)</li>
+    <li>enter the price of the item on the right hand side</li>
+    <li>then, enter the total after tip, taxes, and fees and press "divide it up"</li>
+    </ul>
 
-        <h1>Bill Calculator!</h1>
-        <p>Welcome to the bill calculator, for each item on the reciept, enter the price followed by who got it. If people shared items, enter their names in a comma separated list. When
-            your done, enter the grand total (after tip, tax, delivery fee, service fee) and press the divide it up
-            button.   </p>
+    </div>
+  </div>
+      
+
         <div class="row">
-            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
-                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+          
             <div class="col-6" style='padding-left:0'>
-                <i class="glyphicon glyphicon-user"></i>
-                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
+                <i class="glyphicon glyphicon-user" style="margin-left: 10px;"></i>
+                <input style='width:88%' type="text" placeholder="Person who ordered" class='person' />
             </div>
+            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
+                style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
             <div class="col-12">
                 <hr />
             </div>
 
         </div>
         <div class="row collection">
-            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
-                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+      
             <div class="col-6" style='padding-left:0'>
-                <i class="glyphicon glyphicon-user"></i>
-                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
+                <i class="glyphicon glyphicon-user" style="margin-left: 10px;"></i>
+                <input style='width:88%' type="text" placeholder="Person who ordered" class='person' />
             </div>
+            <div class="col-6" style='padding-right:0'> <span style="margin:0 0 0 3px">$</span><input
+                style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
             <div class="col-12">
                 <hr />
             </div>
@@ -87,8 +102,20 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <button class='button add'>+</button><button class='button sub'
-                    style="background-color: red;">-</button> <br><br>
+                <button class='button add' style = '  background: navy;
+  width: 20%;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  margin-left: 13px;
+  margin-top: 10px;'>+</button><button class='button sub'
+                    style="  background: lightGray;
+                    width: 20%;
+                    font-size: 20px;
+                    font-weight: 900;
+                    border-radius: 7px;
+                    margin-left: 13px;
+                    margin-top: 10px;">-</button> <br><br>
                 <div class='message' style='color:red'></div>
                 <h4 class='results' style='color:black'></h4>
 
@@ -109,12 +136,14 @@
 
             var prices = [];
             $(".add").on("click", function () {
-                $(".collection").append(`<div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
-                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+                $(".collection").append(`
             <div class="col-6" style='padding-left:0'>
                 <i class="glyphicon glyphicon-user"></i>
-                <input style='width:83%' type="text" placeholder="Person who ordered" class='person' />
-            </div><div class="col-12">
+                <input style='width:88%' type="text" placeholder="Person who ordered" class='person' />
+            </div>
+            <div class="col-6" style='padding-right:0'> <span style="margin:0 3px 0 3px">$</span><input
+                    style='width:85%' type='currency' placeholder='Price of item' class='price' /></div>
+            <div class="col-12">
                 <hr />
             </div>`)
             })
