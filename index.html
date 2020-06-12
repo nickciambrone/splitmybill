@@ -163,7 +163,7 @@
                 let heads = []
                 //loop through this jquery array of elements with class "person" and push the values into heads array
                 Array.from(people).forEach(function (el) {
-                    heads.push(el.value);
+                    heads.push(el.value.trim());
                     //make sure that if there is a missing value we alert the user and update the variable
                     if (!el.value) {
                         missingPerson = true;
