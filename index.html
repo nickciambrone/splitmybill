@@ -202,20 +202,23 @@
                         var names = heads[i].split(',').map(function (item) {
                             return item.trim();
                         });
+                        console.log(names)
+                        var thisOneIsSingular= false;
                     }
                     else {
                         var name = heads[i]
+                        var thisOneIsSingular = true;
                     }
-                    if (name) {
+                    if (thisOneIsSingular) {
+                        //if the name isnt already in the object with all the important data
                         if (!obj.hasOwnProperty(heads[i])) {
 
                             //name = head
                             console.log(name)
-                            //
+                            //then stick it in and assignt the value as the corresponding price
                             obj[name] = parseFloat(priceArray[i]);
                         }
                         else {
-                            var name = heads[i]
 
                             obj[name] += parseFloat(priceArray[i])
                         }
@@ -238,6 +241,7 @@
                     }
 
                 }
+                console.log(obj)
                 var grandTotal = $('.grandTotal').val()
                 console.log(grandTotal)
                 for (var property in obj) {
